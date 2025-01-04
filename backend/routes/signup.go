@@ -6,6 +6,7 @@ import (
 	"github.com/MishraShardendu22/schema"
 	"github.com/MishraShardendu22/utils"
 	"github.com/gofiber/fiber/v2"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -27,17 +28,15 @@ func Signup(app *fiber.App, collections *mongo.Collection) {
 		// fmt.Println(UserSignUp)
 
 		fmt.Println("Debug - 0.5")
-		// err := collections.FindOne(c.Context(), bson.M{"$or": []bson.M{
-		// 	{"email": UserSignUp.Email},
-		// 	{"username": UserSignUp.Username},
-		// }}).Decode(&UserSignUp)
-
-		// if err != nil {
-		// 	return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-		// 		"error":   true,
-		// 		"message": "User Already Exists",
-		// 	})
-		// }
+		if collections.FindOne(c.Context(), bson.M{"$or": []bson.M{
+			{"email": UserSignUp.Email},
+			{"username": UserSignUp.Username},
+		}}).Decode(&UserSignUp) == nil {
+			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+				"error":   true,
+				"message": "User Already Exists",
+			})
+		}
 		fmt.Println("Debug - 1")
 
 		UserSignUp.Password = utils.HashPassWord(UserSignUp.Password)
