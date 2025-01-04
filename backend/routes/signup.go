@@ -7,6 +7,10 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
+
 func Signup(app *fiber.App, collections *mongo.Collection) {
-	fmt.Println("This is The Signup Route")
+	app.Post("/signup", func(c *fiber.Ctx) error {
+		fmt.Println("This is The Signup Route")
+				
+	})
 }
