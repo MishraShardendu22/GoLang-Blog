@@ -93,6 +93,7 @@ func CheckOTP(app *fiber.App, collections *mongo.Collection) {
 			})
 		}
 
+		fmt.Println("Success OTP")
 		return c.Status(fiber.StatusOK).JSON(fiber.Map{
 			"error":   false,
 			"message": "OTP Authentication Successful",

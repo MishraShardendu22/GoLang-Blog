@@ -7,7 +7,6 @@ import (
 
 	"github.com/MishraShardendu22/database"
 	"github.com/MishraShardendu22/routes"
-	"github.com/MishraShardendu22/utils"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/joho/godotenv"
