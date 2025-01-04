@@ -52,6 +52,7 @@ func main() {
 func SetUpRoutes(app *fiber.App, collections *mongo.Collection) {
 	// Signup Route
 	routes.Signup(app, collections)
+	routes.CheckOTP(app, collections)
 
 	// Login Route
 	routes.Login(app, collections)
