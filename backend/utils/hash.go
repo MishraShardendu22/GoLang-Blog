@@ -8,7 +8,7 @@ import (
 )
 
 func HashPassWord(password string) string {
-	HashPassWord, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.MaxCost)
+	HashPassWord, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	if err != nil {
 		fmt.Println("Error While Hashing The Password")
 		log.Fatal(err)
