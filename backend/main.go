@@ -7,6 +7,7 @@ import (
 
 	"github.com/MishraShardendu22/database"
 	"github.com/MishraShardendu22/routes"
+	"github.com/MishraShardendu22/utils"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/joho/godotenv"
@@ -31,7 +32,7 @@ func main() {
 
 	// recipient := "shardendumishra02@gmail.com"
 	// otp := 123456
-	// utils.MailSender(recipient, otp)
+	// utils.SendEmailFast(recipient, otp)
 
 	// // // // TESTING PLESASE IGNORE // // // //
 
