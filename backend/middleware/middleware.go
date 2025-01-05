@@ -1,4 +1,4 @@
-package utils
+package middleware
 
 import (
 	"github.com/MishraShardendu22/utils"
