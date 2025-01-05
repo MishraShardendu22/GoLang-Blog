@@ -1,28 +1,28 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     const loginData = { data: email, pass: password };
 
-    const response = await fetch('http://127.0.0.1:3000/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const response = await fetch("http://127.0.0.1:3000/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(loginData),
     });
 
-    if (response.ok) {
-      alert('Login successful!');
-      navigate('/home'); // Redirect to home page on success
+    const result = await response.json();
+    if (response.ok && result.token) {
+      localStorage.setItem("token", result.token);
+      alert("Login successful!");
+      navigate("/home");
     } else {
-      alert('Login failed!');
-      navigate('/notfound'); // Redirect to NotFound page on failure
+      alert(result.message || "Login failed!");
     }
   };
 
