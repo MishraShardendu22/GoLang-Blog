@@ -6,7 +6,7 @@ import (
 )
 
 func MakeBlog(c *fiber.Ctx, collections *mongo.Collection) error {
-	// Dummy response
+	
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{"message": "MakeBlog dummy function"})
 }
 

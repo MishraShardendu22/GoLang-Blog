@@ -40,12 +40,18 @@ type Comment struct {
 	UpdatedAt time.Time `json:"updated_at"`
 }
 
+type Like struct {
+	ID        uint      `json:"id"`
+	PostID    uint      `json:"post_id"`
+	UserID    uint      `json:"user_id"`
+}
+
 type Post struct {
 	ID        uint      `json:"id"`
 	UserID    uint      `json:"user_id"`
 	Title     string    `json:"title"`
 	Content   string    `json:"content"`
-	Likes     int       `json:"likes"`
+	Likes     []Like       `json:"likes"`
 	Comments  []Comment `json:"comments"`
 	Image     string    `json:"image"`
 	CreatedAt time.Time `json:"created_at"`

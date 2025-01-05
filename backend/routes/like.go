@@ -4,7 +4,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"go.mongodb.org/mongo-driver/mongo"
 
-	"github.com/MishraShardendu22/controller"
+	"github.com/MishraShardendu22/controllers"
 )
 
 func LikeRoutes(app *fiber.App, collections *mongo.Collection) {
@@ -14,10 +14,10 @@ func LikeRoutes(app *fiber.App, collections *mongo.Collection) {
 	app.Post("/unlike", func(c *fiber.Ctx) error {
 		return controllers.UnLikePost(c, collections)
 	})
-	app.Get("/likedPost", func(c *fiber.Ctx) error {
+	app.Get("/likedPost/:userId", func(c *fiber.Ctx) error {
 		return controllers.LikedPost(c, collections)
 	})
-	app.Get("/likes", func(c *fiber.Ctx) error {
+	app.Get("/likes/:postId", func(c *fiber.Ctx) error {
 		return controllers.GetLikes(c, collections)
 	})
 }

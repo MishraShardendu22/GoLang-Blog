@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"github.com/MishraShardendu22/controller"
+	"github.com/MishraShardendu22/controllers"
 	"github.com/gofiber/fiber/v2"
 	"go.mongodb.org/mongo-driver/mongo"
 )
