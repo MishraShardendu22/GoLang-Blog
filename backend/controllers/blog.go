@@ -28,41 +28,50 @@ func PostBlog(c *fiber.Ctx, collections *mongo.Collection) error {
 }
 
 func DeleteBlog(c *fiber.Ctx, collections *mongo.Collection) error {
-	id := c.Params("id")
+	var title_blog string
 
-	if id == "" {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"message": "Id is required"})
-	}
-
-	_, err := collections.DeleteOne(c.Context(), bson.M{"_id": id})
-	if err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"message": "Error deleting blog"})
-	}
-
-	return c.Status(fiber.StatusOK).JSON(fiber.Map{"message": "Blog deleted successfully"})
-}
-
-func EditBlog(c *fiber.Ctx, collections *mongo.Collection) error {
-	id := c.Params("id")
-
-	if id == "" {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"message": "Id is required"})
-	}
-
-	var blog schema.Post
-	if err := c.BodyParser(&blog); err != nil {
+	if err := c.BodyParser(&title_blog); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"message": "Error parsing blog data"})
 	}
 
-	update := bson.M{"$set": blog}
-	_, err := collections.UpdateOne(c.Context(), bson.M{"_id": id}, update)
-
+	_, err := collections.DeleteOne(c.Context(), bson.M{"title": title_blog})
 	if err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"message": "Error updating blog"})
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"message": "Error deleting blog"})
 	}
-
-	return c.Status(fiber.StatusOK).JSON(fiber.Map{"message": "Blog updated successfully"})
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{"message": "Blog deleted successfully"})
 }
+
+// func EditBlog(c *fiber.Ctx, collections *mongo.Collection) error {
+//     var id string
+//     var updatedBlog schema.Post
+
+//     fmt.Println("Debug-0")
+
+//     // Parse the ID from URL parameter
+//     id = c.Params("id")
+// 	fmt.Println("ID: ", id)
+
+//     fmt.Println("Debug-1")
+//     // Parse the updated blog data
+//     if err := c.BodyParser(&updatedBlog); err != nil {
+//         return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"message": "Error parsing blog data"})
+//     }
+// 	fmt.Println("Updated Blog: ", updatedBlog)
+
+//     fmt.Println("Debug-2")
+//     // Update the blog with the provided ID
+//     filter := bson.M{"_id": id}
+//     update := bson.M{"$set": updatedBlog}
+
+//     fmt.Println("Debug-3")
+//     _, err := collections.UpdateOne(c.Context(), filter, update)
+//     if err != nil {
+//         return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"message": "Error updating blog"})
+//     }
+
+//     fmt.Println("Debug-4")
+//     return c.Status(fiber.StatusOK).JSON(fiber.Map{"message": "Blog updated successfully"})
+// }
 
 func GetBlog(c *fiber.Ctx, collections *mongo.Collection) error {
 	var blogs []schema.Post

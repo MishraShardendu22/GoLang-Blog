@@ -11,12 +11,12 @@ func BlogRoutes(app *fiber.App, collections *mongo.Collection) {
 	app.Post("/makeBlog", func(c *fiber.Ctx) error {
 		return controllers.PostBlog(c, collections)
 	})
-	app.Post("/deleteBlog", func(c *fiber.Ctx) error {
+	app.Delete("/deleteBlog", func(c *fiber.Ctx) error {
 		return controllers.DeleteBlog(c, collections)
 	})
-	app.Put("/editBlog", func(c *fiber.Ctx) error {
-		return controllers.EditBlog(c, collections)
-	})
+	// app.Put("/editBlog/:id", func(c *fiber.Ctx) error {  
+	// 	return controllers.EditBlog(c, collections)
+	// })	
 	app.Get("/getBlog", func(c *fiber.Ctx) error {
 		return controllers.GetBlog(c, collections)
 	})
