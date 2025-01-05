@@ -14,7 +14,7 @@ func CommentRoutes(app *fiber.App, collections *mongo.Collection) {
 	app.Post("/deleteComment", func(c *fiber.Ctx) error {
 		return controllers.DeleteComment(c, collections)
 	})
-	app.Post("/editComment", func(c *fiber.Ctx) error {
+	app.Put("/editComment", func(c *fiber.Ctx) error {
 		return controllers.EditComment(c, collections)
 	})
 	app.Get("/getComment", func(c *fiber.Ctx) error {
