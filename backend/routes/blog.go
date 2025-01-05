@@ -9,7 +9,7 @@ import (
 
 func BlogRoutes(app *fiber.App, collections *mongo.Collection) {
 	app.Post("/makeBlog", func(c *fiber.Ctx) error {
-		return controllers.MakeBlog(c, collections)
+		return controllers.PostBlog(c, collections)
 	})
 	app.Post("/deleteBlog", func(c *fiber.Ctx) error {
 		return controllers.DeleteBlog(c, collections)

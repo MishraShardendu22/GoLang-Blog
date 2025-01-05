@@ -58,7 +58,7 @@ func SignupHandler(c *fiber.Ctx, collections *mongo.Collection) error {
 			"message": "Error Registering The User Sorry!!",
 		})
 	}
-	fmt.Println("Debug - 2")
+	fmt.Println("Debug - 2 END")
 
 	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
 		"error":   false,

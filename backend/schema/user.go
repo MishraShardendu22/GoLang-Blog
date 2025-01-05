@@ -3,7 +3,6 @@ package schema
 import "time"
 
 type User struct {
-	ID        uint      `json:"id"`
 	Username  string    `json:"username"`
 	Email     string    `json:"email"`
 	Password  string    `json:"password"`
@@ -38,7 +37,7 @@ type Comment struct {
 	Content   string    `json:"content"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
-}
+} 
 
 type Like struct {
 	ID        uint      `json:"id"`
@@ -47,8 +46,7 @@ type Like struct {
 }
 
 type Post struct {
-	ID        uint      `json:"id"`
-	UserID    uint      `json:"user_id"`
+	Username  string    `json:"username"`
 	Title     string    `json:"title"`
 	Content   string    `json:"content"`
 	Likes     []Like       `json:"likes"`

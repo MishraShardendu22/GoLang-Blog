@@ -4,6 +4,7 @@ import OtpPage from "./components/Otp";
 import LoginPage from "./components/Login";
 import Home from "./components/Home";
 import NotFound from "./components/NotFound";
+import Blog from "./components/Blog";
 import PrivateRoute from "./components/PrivateRoute";
 
 export default function App() {
@@ -13,12 +14,22 @@ export default function App() {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/otp" element={<OtpPage />} />
         <Route path="/login" element={<LoginPage />} />
-        {/* Protect the /home route */}
-        <Route
-          path="/home"
-          element={
+        <Route path="/home" element={
             <PrivateRoute>
               <Home />
+            </PrivateRoute>
+          }
+        />
+        <Route path="/" element={
+            <PrivateRoute>
+              <Home />
+            </PrivateRoute>
+          }
+        />
+        
+        <Route path="/blog" element={
+            <PrivateRoute>
+              <Blog />
             </PrivateRoute>
           }
         />

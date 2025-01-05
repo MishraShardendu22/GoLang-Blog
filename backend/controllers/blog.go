@@ -1,24 +1,29 @@
 package controllers
 
 import (
+	"fmt"
+
 	"github.com/MishraShardendu22/schema"
 	"github.com/gofiber/fiber/v2"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func MakeBlog(c *fiber.Ctx, collections *mongo.Collection) error {
+func PostBlog(c *fiber.Ctx, collections *mongo.Collection) error {
 	var blog schema.Post
 
+	fmt.Println("Debug-0")
 	if err := c.BodyParser(&blog); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"message": "Error parsing blog data"})
 	}
 
+	fmt.Println("Debug-1")
 	_, err := collections.InsertOne(c.Context(), blog)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"message": "Error adding blog"})
 	}
 
+	fmt.Println("Debug-2")
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{"message": "Blog added successfully"})
 }
 
@@ -60,22 +65,22 @@ func EditBlog(c *fiber.Ctx, collections *mongo.Collection) error {
 }
 
 func GetBlog(c *fiber.Ctx, collections *mongo.Collection) error {
-	id := c.Params("id")
+	var blogs []schema.Post
 
-	if id == "" {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"message": "Id is required"})
-	}
-
-	cursor, err := collections.Find(c.Context(), bson.M{"_id": id})
+	// Fetch all blogs from the collection
+	cursor, err := collections.Find(c.Context(), bson.M{})
 	if err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"message": "Error finding blog"})
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"message": "Error retrieving blogs"})
 	}
 	defer cursor.Close(c.Context())
 
-	var blogs []schema.Post
+	// Decode the cursor into the blogs slice
 	if err := cursor.All(c.Context(), &blogs); err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"message": "Error decoding blog data"})
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"message": "Error decoding blogs"})
 	}
 
-	return c.Status(fiber.StatusOK).JSON(fiber.Map{"message": "Blog retrieved successfully", "data": blogs})
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"message": "Blogs retrieved successfully",
+		"data":    blogs,
+	})
 }
