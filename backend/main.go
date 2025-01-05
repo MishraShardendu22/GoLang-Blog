@@ -7,6 +7,8 @@ import (
 
 	"github.com/MishraShardendu22/database"
 	"github.com/MishraShardendu22/routes"
+
+	// "github.com/MishraShardendu22/utils"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/joho/godotenv"
@@ -27,13 +29,11 @@ func main() {
 	// Start Server
 	StartServer(app)
 
-	// // // // TESTING PLESASE IGNORE // // // //
-
+	// // // // TESTING PLEASE IGNORE // // // //
 	// recipient := "shardendumishra02@gmail.com"
 	// otp := 123456
 	// utils.SendEmailFast(recipient, otp)
-
-	// // // // TESTING PLESASE IGNORE // // // //
+	// // // // TESTING PLEASE IGNORE // // // //
 
 	// Listening To CORS
 	SettingUpCORS(app)
@@ -51,20 +51,22 @@ func main() {
 
 func SetUpRoutes(app *fiber.App, collections *mongo.Collection) {
 	// Signup Route
-	routes.Signup(app, collections)
-	routes.CheckOTP(app, collections)
+	routes.SignupRoutes(app, collections)
+
+	// Otp Route
+	routes.OTPRoutes(app, collections)
 
 	// Login Route
-	routes.Login(app, collections)
+	routes.LoginRoutes(app, collections)
 
 	// Like Route
-	routes.Like(app, collections)
+	routes.LikeRoutes(app, collections)
 
 	// Blog Route
-	routes.Blog(app, collections)
+	routes.BlogRoutes(app, collections)
 
 	// Comment Route
-	routes.Comment(app, collections)
+	routes.CommentRoutes(app, collections)
 }
 
 func SettingUpCORS(app *fiber.App) {
